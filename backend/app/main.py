@@ -1,18 +1,18 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.schemas import (
+from backend.app.schemas import (
     AnalyzeRequest,
     AnalyzeResponse,
     GenerateResumeResponse
 )
 
-from app.services.ai_service import (
+from backend.app.services.ai_service import (
     analyze_resume,
     generate_optimized_resume
 )
 
-from app.services.pdf_service import extract_text_from_pdf
+from backend.app.services.pdf_service import extract_text_from_pdf
 
 app = FastAPI(
     title="Smart Resume AI",
