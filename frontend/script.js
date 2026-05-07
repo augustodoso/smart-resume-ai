@@ -1,3 +1,5 @@
+const API_URL = "https://smart-resume-ai-pbvo.onrender.com";
+
 let lastAnalysis = null;
 let lastOptimizedResume = null;
 
@@ -14,7 +16,7 @@ async function analyzeResume() {
     result.innerHTML = "<p>Analisando currículo com IA...</p>";
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/analyze", {
+        const response = await fetch(`${API_URL}/analyze`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -72,7 +74,7 @@ async function analyzeResume() {
             </div>
         `;
     } catch (error) {
-        result.innerHTML = "<p>Erro ao conectar com a API.</p>";
+        result.innerHTML = "<p>Erro ao conectar com a API online.</p>";
     }
 }
 
@@ -88,7 +90,7 @@ async function uploadPDF() {
     formData.append("file", fileInput.files[0]);
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/upload-resume", {
+        const response = await fetch(`${API_URL}/upload-resume`, {
             method: "POST",
             body: formData
         });
@@ -98,7 +100,7 @@ async function uploadPDF() {
 
         alert("PDF carregado com sucesso!");
     } catch (error) {
-        alert("Erro ao enviar PDF.");
+        alert("Erro ao enviar PDF para a API online.");
     }
 }
 
@@ -176,7 +178,7 @@ async function generateResume() {
     `;
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/generate-resume", {
+        const response = await fetch(`${API_URL}/generate-resume`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -186,7 +188,6 @@ async function generateResume() {
         });
 
         const data = await response.json();
-
         lastOptimizedResume = data.optimized_resume;
 
         result.innerHTML = `
@@ -203,7 +204,7 @@ async function generateResume() {
     } catch (error) {
         result.innerHTML = `
             <div class="card full">
-                <h3>Erro ao gerar currículo.</h3>
+                <h3>Erro ao gerar currículo pela API online.</h3>
             </div>
         `;
     }
